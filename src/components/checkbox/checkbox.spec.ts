@@ -183,6 +183,22 @@ describe('MdCheckbox', () => {
       expect(checkboxNativeElement.classList).toContain('md-checkbox-align-end');
     });
 
+    it('should not fire click event on click when disabled', () => {
+      testComponent.isDisabled = true;
+      fixture.detectChanges();
+
+      labelElement.click();
+      expect(testComponent.clickCheckboxCount).toBe(0);
+    });
+    
+    it('should fire one click event on click', () => {
+      testComponent.isDisabled = false;
+      fixture.detectChanges();
+
+      labelElement.click();
+      expect(testComponent.clickCheckboxCount).toBe(1);
+    });
+
     it('should emit a change event when the `checked` value changes', () => {
       // TODO(jelbourn): this *should* work with async(), but fixture.whenStable currently doesn't
       // know to look at pending macro tasks.
@@ -463,7 +479,8 @@ describe('MdCheckbox', () => {
         [checked]="isChecked" 
         [indeterminate]="isIndeterminate" 
         [disabled]="isDisabled"
-        (change)="changeCount = changeCount + 1">
+        (change)="changeCount = changeCount + 1"
+        (click)="clickCheckboxCount = clickCheckboxCount + 1">
       Simple checkbox
     </md-checkbox>
   </div>`
@@ -476,6 +493,7 @@ class SingleCheckbox {
   parentElementClicked: boolean = false;
   parentElementKeyedUp: boolean = false;
   lastKeydownEvent: Event = null;
+  clickCheckboxCount: number = 0;
 }
 
 /** Simple component for testing an MdCheckbox with ngModel and ngControl. */

@@ -246,6 +246,16 @@ export class MdCheckbox implements AfterContentInit, ControlValueAccessor {
   }
 
   /**
+   * Catches click event, stopping propagation if disabled.
+   * @internal
+   */
+  onClick(event: MouseEvent) {
+    if (this.disabled) {
+      event.stopPropagation();
+    }
+  }
+
+  /**
    * Informs the component when we lose focus in order to style accordingly
    * @internal
    */

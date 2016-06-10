@@ -1,4 +1,4 @@
-<label class="md-checkbox-layout">
+<label class="md-checkbox-layout" (click)="onClick($event)" >
   <div class="md-checkbox-inner-container">
     <input class="md-checkbox-input" type="checkbox"
            [id]="inputId"
@@ -11,7 +11,8 @@
            [attr.aria-labelledby]="ariaLabelledby"
            (focus)="onInputFocus()"
            (blur)="onInputBlur()"
-           (change)="onInteractionEvent($event)">
+           (change)="onInteractionEvent($event)"
+           (click)="$event.stopPropagation()">
     <div class="md-ink-ripple"></div>
     <div class="md-checkbox-frame"></div>
     <div class="md-checkbox-background">
